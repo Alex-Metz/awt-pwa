@@ -4,10 +4,9 @@ const DYNAMIC_CHACHE = 'dynamic-site-cache';
 
 // static resources
 const STATIC_CACHE_LIST = [
-  '/awt-pwa/#/data/videos.json', '/awt-pwa/#/asset-manifest.json',
-  '/awt-pwa/#/bootstrap.min.css', '/awt-pwa/#/favicon.ico',
-  '/awt-pwa/#/index.html', '/awt-pwa/#/manifest.json',
-  '/awt-pwa/#/shaka-player.compiled.js', '/awt-pwa/#/shaka-player.compiled.map'
+  '/#/data/videos.json', '/#/asset-manifest.json', '/#/bootstrap.min.css',
+  '/#/favicon.ico', '/#/index.html', '/#/manifest.json',
+  '/#/shaka-player.compiled.js', '/#/shaka-player.compiled.map'
 ];
 
 // caches static resources
@@ -18,7 +17,7 @@ self.addEventListener('install', function(event) {
             return cache.addAll(STATIC_CACHE_LIST);
           })
           .then(self.skipWaiting())  // run new service worker right away
-          .then(success => console.log('Static resources cached. Scope: '))
+          .then(success => console.log('Static resources cached.'))
           .catch(
               error => console.log(
                   'An Error occured while caching static resources!', error)));
