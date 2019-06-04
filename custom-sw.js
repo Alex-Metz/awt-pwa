@@ -4,14 +4,14 @@ const DYNAMIC_CHACHE = 'dynamic-site-cache';
 
 // static resources
 const STATIC_CACHE_LIST = [
-  'https://al-metz.github.io/awt-pwa/data/videos.json',
-  'https://al-metz.github.io/awt-pwa/asset-manifest.json',
-  'https://al-metz.github.io/awt-pwa/bootstrap.min.css',
-  'https://al-metz.github.io/awt-pwa/favicon.ico',
-  'https://al-metz.github.io/awt-pwa/index.html',
-  'https://al-metz.github.io/awt-pwa/manifest.json',
-  'https://al-metz.github.io/awt-pwa/shaka-player.compiled.js',
-  'https://al-metz.github.io/awt-pwa/shaka-player.compiled.map'
+  'https://al-metz.github.io/awt-pwa/#/data/videos.json',
+  'https://al-metz.github.io/awt-pwa/#/asset-manifest.json',
+  'https://al-metz.github.io/awt-pwa/#/bootstrap.min.css',
+  'https://al-metz.github.io/awt-pwa/#/favicon.ico',
+  'https://al-metz.github.io/awt-pwa/#/index.html',
+  'https://al-metz.github.io/awt-pwa/#/manifest.json',
+  'https://al-metz.github.io/awt-pwa/#/shaka-player.compiled.js',
+  'https://al-metz.github.io/awt-pwa/#/shaka-player.compiled.map'
 ];
 
 // caches static resources
@@ -22,9 +22,7 @@ self.addEventListener('install', function(event) {
             return cache.addAll(STATIC_CACHE_LIST);
           })
           .then(self.skipWaiting())  // run new service worker right away
-          .then(
-              success => console.log(
-                  'Static resources cached. Scope: ', success.scope))
+          .then(success => console.log('Static resources cached. Scope: '))
           .catch(
               error => console.log(
                   'An Error occured while caching static resources!', error)));
@@ -58,24 +56,22 @@ self.addEventListener('activate', function(event) {
 
 // handle fetch events
 self.addEventListener('fetch', function(event) {
-  if (event.request.url.startsWith(self.location.origin)) {
-    event.respondWith(caches.match(event.request).then(function(cachedResp) {
-      // try to find cached resources
-      if (cachedResp) {
-        return cachedResp;
-      } else {
-        // fallback: make network request and cache new resources
-        return caches.open(DYNAMIC_CHACHE).then(function(cache) {
-          console.log('Cache opened.');
-          return fetch(event.request).then(function(resp) {
-            console.log('Data fetched.');
-            return cache.put(event.request, resp.clone()).then(() => {
-              console.log('Data cached.');
-              return resp;
-            });
+  event.respondWith(caches.match(event.request).then(function(cachedResp) {
+    // try to find cached resources
+    if (cachedResp) {
+      return cachedResp;
+    } else {
+      // fallback: make network request and cache new resources
+      return caches.open(DYNAMIC_CHACHE).then(function(cache) {
+        console.log('Cache opened.');
+        return fetch(event.request).then(function(resp) {
+          console.log('Data fetched.');
+          return cache.put(event.request, resp.clone()).then(() => {
+            console.log('Data cached.');
+            return resp;
           });
         });
-      }
-    }));
-  }
+      });
+    }
+  }));
 });
