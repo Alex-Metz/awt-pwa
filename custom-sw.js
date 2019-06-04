@@ -55,15 +55,15 @@ self.addEventListener('fetch', function(event) {
     // try to find cached resources
     if (cachedResp) {
       return cachedResp;
-    } /*else {
+    } else {
       // fallback: make network request and cache new resources
       return caches.open(DYNAMIC_CHACHE).then(function(cache) {
         return fetch(event.request).then(function(resp) {
-          return cache.put(event.request, resp.clone()).then(() => {
-            return resp;
-          });
+          // return cache.put(event.request, resp.clone()).then(() => {
+          return resp;
+          // });
         });
       });
-    }*/
+    }
   }));
 });
