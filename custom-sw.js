@@ -4,9 +4,14 @@ const DYNAMIC_CHACHE = 'dynamic-site-cache';
 
 // static resources
 const STATIC_CACHE_LIST = [
-  'awt-pwa/data/videos.json', '/awt-pwa/asset-manifest.json',
-  '/bootstrap.min.css', 'favicon.ico', 'awt-pwa/index.html', '/manifest.json',
-  '/shaka-player.compiled.js', '/shaka-player.compiled.map'
+  'https://al-metz.github.io/awt-pwa/data/videos.json',
+  'https://al-metz.github.io/awt-pwa/asset-manifest.json',
+  'https://al-metz.github.io/awt-pwa/bootstrap.min.css',
+  'https://al-metz.github.io/awt-pwa/favicon.ico',
+  'https://al-metz.github.io/awt-pwa/index.html',
+  'https://al-metz.github.io/awt-pwa/manifest.json',
+  'https://al-metz.github.io/awt-pwa/shaka-player.compiled.js',
+  'https://al-metz.github.io/awt-pwa/shaka-player.compiled.map'
 ];
 
 // caches static resources
