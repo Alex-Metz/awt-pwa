@@ -10,24 +10,25 @@ const STATIC_CACHE_LIST = [
 
 // caches static resources
 self.addEventListener('install', function(event) {
+  console.log('Caching static resources.');
   event.waitUntil(
       caches.open(STATIC_CACHE)
           .then(function(cache) {
             return cache.addAll(STATIC_CACHE_LIST);
           })
           .then(self.skipWaiting())  // run new service worker right away
-          .then(success => console.log('Static resources cached'))
           .catch(
               error => console.log(
-                  'An Error occured while caching static resources!', error)));
+                  'An Error occured while caching static resources! Error:',
+                  error)));
 });
 
 
 // garbage collector for old caches
 self.addEventListener('activate', function(event) {
   // checks of cache types
+  console.log('Deleting old cache.');
   let cacheList = [STATIC_CACHE, DYNAMIC_CHACHE];
-
   event.waitUntil(
       caches.keys()
           .then(function(cacheNames) {
@@ -41,10 +42,10 @@ self.addEventListener('activate', function(event) {
             }));
           })
           .then(() => self.clients.claim())
-          .then(success => console.log('Old caches successfully deleted.'))
           .catch(
               error => console.log(
-                  'An Error occured while deleting old caches!', error)));
+                  'An Error occured while deleting the old cache! Error:',
+                  error)));
 });
 
 
@@ -57,11 +58,8 @@ self.addEventListener('fetch', function(event) {
     } else {
       // fallback: make network request and cache new resources
       return caches.open(DYNAMIC_CHACHE).then(function(cache) {
-        console.log('Cache opened.');
         return fetch(event.request).then(function(resp) {
-          console.log('Data fetched.');
           return cache.put(event.request, resp.clone()).then(() => {
-            console.log('Data cached.');
             return resp;
           });
         });
