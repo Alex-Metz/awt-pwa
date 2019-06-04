@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8514b5ba53f9f906f7fb402dedda1930",
+    "revision": "0a12eb2cfe294316ef92bfc28d7ae7ea",
     "url": "/awt-pwa/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/awt-pwa/static/js/2.716291fc.chunk.js"
   },
   {
-    "revision": "9b2e4e086353c67424a8",
-    "url": "/awt-pwa/static/js/main.82dbd030.chunk.js"
+    "revision": "378fc861dd477e076fc6",
+    "url": "/awt-pwa/static/js/main.837dd758.chunk.js"
   },
   {
     "revision": "d3e6c92ec33f19987f67",
