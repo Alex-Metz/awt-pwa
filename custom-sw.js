@@ -17,7 +17,7 @@ self.addEventListener('install', function(event) {
             return cache.addAll(STATIC_CACHE_LIST);
           })
           .then(self.skipWaiting())  // run new service worker right away
-          .then(success => console.log('Static resources cached'))
+          .then(success => console.log('Static resources cached. Scope: ' success.scope))
           .catch(
               error => console.log(
                   'An Error occured while caching static resources!', error)));
