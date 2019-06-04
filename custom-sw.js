@@ -4,14 +4,9 @@ const DYNAMIC_CHACHE = 'dynamic-site-cache';
 
 // static resources
 const STATIC_CACHE_LIST = [
-  `${process.env.PUBLIC_URL}/data/videos.json`,
-  `${process.env.PUBLIC_URL}/asset-manifest.json`,
-  `${process.env.PUBLIC_URL}/bootstrap.min.css`,
-  `${process.env.PUBLIC_URL}/favicon.ico`,
-  `${process.env.PUBLIC_URL}/index.html`,
-  `${process.env.PUBLIC_URL}/manifest.json`,
-  `${process.env.PUBLIC_URL}/shaka-player.compiled.js`,
-  `${process.env.PUBLIC_URL}/shaka-player.compiled.map`
+  '/data/videos.json', '/asset-manifest.json', '/bootstrap.min.css',
+  '/favicon.ico', '/index.html', '/manifest.json', '/shaka-player.compiled.js',
+  '/shaka-player.compiled.map'
 ];
 
 // caches static resources
