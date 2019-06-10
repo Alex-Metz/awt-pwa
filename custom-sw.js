@@ -4,12 +4,16 @@ const DYNAMIC_CHACHE = 'dynamic-site-cache';
 
 // static resources
 const STATIC_CACHE_LIST = [
-  '/awt-pwa/', '/awt-pwa/data/videos.json', '/awt-pwa/manifest.json',
-  '/awt-pwa/favicon.ico', '/awt-pwa/asset-manifest.json', '/awt-pwa/index.html',
-  '/awt-pwa/static/js/2.716291fc.chunk.js',
-  '/awt-pwa/static/js/main.777d5bdc.chunk.js',
+  '/awt-pwa/',
+  '/awt-pwa/data/videos.json',
+  '/awt-pwa/manifest.json',
+  '/awt-pwa/favicon.ico',
+  '/awt-pwa/asset-manifest.json',
+  '/awt-pwa/index.html',
+  '/awt-pwa/static/js/2.d2983f54.chunk.js',
+  '/awt-pwa/static/js/main.dc315b99.chunk.js',
   '/awt-pwa/static/js/runtime~main.a5205106.js',
-  '/awt-pwa/static/css/2.266e55a5.chunk.css'
+  '/awt-pwa/static/css/2.266e55a5.chunk.css',
 ];
 
 // caches static resources
