@@ -14,7 +14,7 @@
     "title": "Big Buck Bunny",
     "id": "bbb",
     "tagline": "Short animation film from Blender.",
-    "poster": "http://demo.megathe.me/heat/wp-content/uploads/2012/11/Big_Buck_Bunny_Trailer_480x270.png",
+    "poster": "https://peach.blender.org/wp-content/uploads/bbb-splash.png?x43337",
     "qualities": [288, 396, 504, 720, 1080],
     "languages": ["en"],
     "subtitles": []
