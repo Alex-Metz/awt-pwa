@@ -12,18 +12,17 @@ import DownloadItem from '../components/DownloadItem';
 import DownloadInProgress from '../components/DownloadInProgress';
 
 const DownloadManager = () => {
-  const { state, dispatch } = useContext(Store);
-  const { dbIndex } = state;
-  const [downloadInProgress, setDownloadInProgress] = useState({ content: null, progress: 0 });
-  const { content, progress } = downloadInProgress;
+  const { state: { dbIndex, storage }, dispatch } = useContext(Store);
+  const [{ content, progress }, setDownloadInProgress] = useState({ content: null, progress: 0 });
 
   useEffect(() => {
+    if (!storage) return;
     const updateList = async () => {
-      const newDbIndex = await window.storage.list();
-      dispatch({ type: 'UPDATE_DB_INDEX', dbIndex: newDbIndex });
+      const newDbIndex = await storage.list();
+      dispatch({ type: 'UPDATE_DB_INDEX', payload: { dbIndex: newDbIndex } });
     };
     updateList();
-  }, [dispatch]);
+  }, [dispatch, storage]);
   
   const handleProgressEvent = event => {
     setDownloadInProgress(event.detail);
@@ -37,9 +36,10 @@ const DownloadManager = () => {
   }, []);
 
   const removeMedia = async (offlineUri) => {
-    await window.storage.remove(offlineUri);
-    const newDbIndex = await window.storage.list();
-    dispatch({ type: 'UPDATE_DB_INDEX', dbIndex: newDbIndex });
+    // TODO deleting while a download is in progress messes up the progress bar. thanks shaka
+    await storage.remove(offlineUri);
+    const newDbIndex = await storage.list();
+    dispatch({ type: 'UPDATE_DB_INDEX', payload: { dbIndex: newDbIndex } });
   };
   
   const debounced = useRef(debounce(async () => {
@@ -49,8 +49,8 @@ const DownloadManager = () => {
       content: null,
       progress: 0,
     });
-    const newDbIndex = await window.storage.list();
-    dispatch({ type: 'UPDATE_DB_INDEX', dbIndex: newDbIndex });
+    const newDbIndex = await storage.list();
+    dispatch({ type: 'UPDATE_DB_INDEX', payload: { dbIndex: newDbIndex } });
   }, 1000));
 
   useEffect(() => {
@@ -62,16 +62,23 @@ const DownloadManager = () => {
       <ul className="list-group">
         {content &&
           <DownloadInProgress title={content.appMetadata.title} progress={progress} dateStarted={content.appMetadata.downloaded} />}
-        {dbIndex.reverse().map(({ appMetadata, offlineUri }, index) => (
-          <DownloadItem
-            title={appMetadata.title}
-            key={`download_${index}_${appMetadata.title}`}
-            done
-            id={appMetadata.id}
-            removeMedia={() => removeMedia(offlineUri)}
-            downloadedOn={appMetadata.downloaded}
-          />
-        ))}
+        {dbIndex.reverse().map(({ appMetadata, offlineUri, tracks }, index) => {
+          const mainTrack = tracks.find(track => track.type === 'variant');
+          const subTrack = tracks.find(track => track.type === 'text');
+
+          return (
+            <DownloadItem
+              title={appMetadata.title}
+              key={`download_${index}_${appMetadata.title}`}
+              done
+              id={appMetadata.id}
+              removeMedia={() => removeMedia(offlineUri)}
+              downloadedOn={appMetadata.downloaded}
+              language={mainTrack.language}
+              subtitles={subTrack ? subTrack.language : 'None'}
+              quality={mainTrack.height}
+            />
+          )})}
       </ul>
       <StorageInfo max={2000} current={500} />
     </Fragment>
