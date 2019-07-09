@@ -9,7 +9,7 @@ const STATIC_CACHE_LIST = [
   '/awt-pwa/static/css/2.d64b8b57.chunk.css',
   '/awt-pwa/static/js/2.943567e2.chunk.js',
   '/awt-pwa/static/js/main.785d78e9.chunk.js',
-  '/awt-pwa/static/css/runtime~main.a5205106.js',
+  '/awt-pwa/static/js/runtime~main.a5205106.js',
   '/awt-pwa/precache-manifest.2c17b7eceb8c395dad0f74a101482e4c.js'
 ];
 
