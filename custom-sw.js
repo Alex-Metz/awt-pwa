@@ -6,11 +6,13 @@ const DYNAMIC_CHACHE = 'dynamic-site-cache';
 const STATIC_CACHE_LIST = [
   '/awt-pwa/', '/awt-pwa/data/videos.json', '/awt-pwa/manifest.json',
   '/awt-pwa/favicon.ico', '/awt-pwa/asset-manifest.json', '/awt-pwa/index.html',
+  '/awt-pwa/icons/faviconSmall.png', '/awt-pwa/icons/faviconMedium.png', '/awt-pwa/icons/faviconBig.png',
+  '/awt-pwa/icons/faviconExtraLarge.png',
   '/awt-pwa/static/css/2.d64b8b57.chunk.css',
-  '/awt-pwa/static/js/2.943567e2.chunk.js',
-  '/awt-pwa/static/js/main.785d78e9.chunk.js',
+  '/awt-pwa/static/js/2.2a68f2e7.chunk.js',
+  '/awt-pwa/static/js/main.a8583c1a.chunk.js',
   '/awt-pwa/static/js/runtime~main.a5205106.js',
-  '/awt-pwa/precache-manifest.2c17b7eceb8c395dad0f74a101482e4c.js'
+  '/awt-pwa/precache-manifest.3d15cb14db9a2541dbe4d20893fa2968.js'
 ];
 
 // initiate cache with static resources
