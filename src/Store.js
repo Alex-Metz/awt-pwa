@@ -18,7 +18,7 @@ const initialState = {
   player: null,
   storage: null,
 };
- 
+
 const init = async (dispatch) => {
   const videosJsonPromise = fetch('data/videos.json').then(response => response.json());
 
@@ -49,9 +49,16 @@ const init = async (dispatch) => {
     const trackSelectionCallback = (tracks) => {
       // HACK: TODO MAYBE: no idea how to access the state inside this function, so I'll just use the cookie
       // I would prefer to access the state
-      let quality = parseInt(cookies.get('userPreferredQuality'));
-      let language = cookies.get('userPreferredAudioLanguage');
-      let subtitles = cookies.get('userPreferredTextLanguage');
+      let quality = initialConfiguration.quality;
+      let language = initialConfiguration.language;
+      let subtitles = initialConfiguration.subtitles;
+
+      if (!!cookies.get('userPreferredQuality')) 
+        quality = parseInt(cookies.get('userPreferredQuality'));  
+      if (!!cookies.get('userPreferredAudioLanguage'))
+         language = cookies.get('userPreferredAudioLanguage');
+      if (!!cookies.get('userPreferredTextLanguage'))
+         subtitles = cookies.get('userPreferredTextLanguage');
 
       if (!!window.customConfig) {
         quality = window.customConfig.quality;
@@ -60,19 +67,20 @@ const init = async (dispatch) => {
 
         window.customConfig = null;
       }
-
-      console.log(quality, language, subtitles);
+      player.configure({
+        preferredAudioLanguage: language,
+        preferredTextLanguage: subtitles,
+      });
 
       const videoWithAudio = tracks
         .sort((a, b) => a.height - b.height) // qualities are now sorted from worst to best
         .filter(track => track.type === 'variant' && track.height <= quality); // choose all qualities smaller than the preferrence
-      
+
       const videoWithCorrectLanguage = videoWithAudio.filter(track => track.language === language);
-      console.log(videoWithCorrectLanguage);
 
       const subtitlesTracks = tracks.filter(track => track.type === 'text').filter(track => track.language === subtitles);
       console.log(subtitlesTracks);
-
+      //player.configure({ preferredTextLanguage: subtitles});
       return [
         ...subtitlesTracks,
         videoWithCorrectLanguage.length > 0 ? videoWithCorrectLanguage.pop() : videoWithAudio.pop() // choose english when preferrence is not available
@@ -80,7 +88,7 @@ const init = async (dispatch) => {
     }
 
     // make shaka dispatch progress events so that we can have a progress bar when downloading
-    const progressCallback = (content, progress) => window.dispatchEvent(new CustomEvent('storage-progress', { detail: { content, progress }}));
+    const progressCallback = (content, progress) => window.dispatchEvent(new CustomEvent('storage-progress', { detail: { content, progress } }));
     player.configure({
       offline: {
         progressCallback,
