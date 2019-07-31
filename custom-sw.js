@@ -9,10 +9,10 @@ const STATIC_CACHE_LIST = [
   '/awt-pwa/icons/faviconSmall.png', '/awt-pwa/icons/faviconMedium.png',
   '/awt-pwa/icons/faviconLarge.png', '/awt-pwa/icons/faviconExtraLarge.png',
   '/awt-pwa/static/css/2.d64b8b57.chunk.css',
-  '/awt-pwa/static/js/2.2a68f2e7.chunk.js',
-  '/awt-pwa/static/js/main.6ff9cd2c.chunk.js',
+  '/awt-pwa/static/js/2.9583270a.chunk.js',
+  '/awt-pwa/static/js/main.28749014.chunk.js',
   '/awt-pwa/static/js/runtime~main.a5205106.js',
-  '/awt-pwa/precache-manifest.9cc438921955bf35a64abaa7aa88d9bf.js'
+  '/awt-pwa/precache-manifest.a217b1852c6513d5aaea9757584832d2.js'
 ];
 
 // initiate cache with static resources
